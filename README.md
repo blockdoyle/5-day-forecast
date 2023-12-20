@@ -4,9 +4,9 @@
 
 ## Overview
 
-5-day-forecast is a small program to help organize your workday. It creates time-blocks from 9am-5pm and saves the text you enter to localStorage.
+5-day-forecast is a web application that gets the weather forecast for the next 5 days for a specified location.
 
-If the time has passed, then the time-block will be grey. The time block will turn red when the current hour matches the correct time-block. The time block will be green when the time-block is in the future.
+This web app uses the [OpenWeatherMap API](openweathermap.org) to retrieve the weather.
 
 [Link to Website](https://blockdoyle.github.io/5-day-forecast/)
 
