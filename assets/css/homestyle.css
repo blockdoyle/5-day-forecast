@@ -1,0 +1,13 @@
+header {
+    background-color: gray;
+    color: white;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    main {
+        display: flex;
+        flex-flow: column wrap;
+        margin: 5rem;
+    }
+}
