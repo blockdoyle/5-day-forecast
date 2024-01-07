@@ -1,7 +1,12 @@
 header {
-    background-color: gray;
-    color: white;
     text-align: center;
+}
+
+.card {
+    background-color: lightsteelblue;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: larger;
 }
 
 @media (min-width: 768px) {
@@ -9,5 +14,6 @@ header {
         display: flex;
         flex-flow: column wrap;
         margin: 5rem;
+        width: 50%;
     }
 }

@@ -19,7 +19,7 @@ function getWeather(location) {
     })
     .then(function (data) {
       // console.log(data);
-      displayData(data, city, state, country);
+      displayData(data);
       // Save to local storage
       localStorage.setItem("lastData", JSON.stringify(data));
     });
@@ -30,39 +30,49 @@ function displayData(data) {
     $("#forecast").html("<h3>No Weather Information Found</h3>");
     return;
   }
-
+  // Get city name
+    var city = data.city.name;
   // Current weather
   var currentWeather = data.list[0];
   var currentTemp = currentWeather.main.temp;
   var currentHumidity = currentWeather.main.humidity;
-  var currentWind = currentWeather.wind.speed;
+var currentWind = currentWeather.wind.speed;
 
-  // Round temperature to nearest whole number
-  currentTemp = Math.round(currentTemp);
+// Round temperature to nearest whole number
+currentTemp = Math.round(currentTemp);
 
-  // Clear previous weather data
-  $("#forecast-current").empty();
-  $("#forecast-5day").empty();
+// Clear previous weather data
+$("#forecast-current").empty();
+$("#forecast-5day").empty();
 
-  // Append and show weather data on page
-  $("#forecast-current").append(`<p>Temperature: ${currentTemp}°C</p>`);
-  $("#forecast-current").append(`<p>Humidity: ${currentHumidity}%</p>`);
-  $("#forecast-current").append(`<p>Wind Speed: ${currentWind} km/h</p>`);
+// Append and show weather data on page
+$("#forecast-current").append(`
+    <h3>Current Weather for ${city}</h3>
+    <div class="card border border-black col-auto p-2">
+        <p>Temperature: ${currentTemp}°C</p>
+        <p>Humidity: ${currentHumidity}%</p>
+        <p>Wind Speed: ${currentWind} km/h</p>
+    </div>
+`);
 
-  // Append and show the 5 day forecast on page
-  $("#forecast-5day").append(`<h3>5-Day Forecast</h3>`);
+// Append and show the 5 day forecast on page
+$("#forecast-5day").append(`<h3>5-Day Forecast</h3>`);
 
-  // Append data list items 1-6 to #forecast-5day
-  for (var i = 1; i <= 6; i++) {
+// Append data list items 1-6 to #forecast-5day
+for (var i = 1; i <= 6; i++) {
     var forecastWeather = data.list[i];
     var forecastTemp = forecastWeather.main.temp;
     var forecastHumidity = forecastWeather.main.humidity;
     var forecastWind = forecastWeather.wind.speed;
     forecastTemp = Math.round(forecastTemp); // Round temperature to nearest whole number
-    $("#forecast-5day").append(
-      `<p>Day ${i} - Temperature: ${forecastTemp}°C, Humidity: ${forecastHumidity}%, Wind Speed: ${forecastWind} km/h</p>`
-    );
-  }
+    $("#forecast-5day").append(`
+        <div class="card border border-black col-auto p-2 mb-1">
+                <p>Temperature: ${forecastTemp}°C</p>
+                <p>Humidity: ${forecastHumidity}%</p>
+                <p>Wind Speed: ${forecastWind} km/h</p>
+        </div>
+    `);
+}
 }
 
 // Event listener for search button
