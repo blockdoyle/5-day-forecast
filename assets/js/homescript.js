@@ -20,45 +20,49 @@ function getWeather(location) {
     .then(function (data) {
       // console.log(data);
       displayData(data, city, state, country);
+      // Save to local storage
+      localStorage.setItem("lastData", JSON.stringify(data));
     });
 }
 
-function displayData(data, city, state, country) {
-    if (data.length === 0) {
-        $("#forecast").html("<h3>No Weather Information Found</h3>");
-        return;
-    }
+function displayData(data) {
+  if (data.length === 0) {
+    $("#forecast").html("<h3>No Weather Information Found</h3>");
+    return;
+  }
 
-    // Current weather
-    var currentWeather = data.list[0];
-    var currentTemp = currentWeather.main.temp;
-    var currentHumidity = currentWeather.main.humidity;
-    var currentWind = currentWeather.wind.speed;
+  // Current weather
+  var currentWeather = data.list[0];
+  var currentTemp = currentWeather.main.temp;
+  var currentHumidity = currentWeather.main.humidity;
+  var currentWind = currentWeather.wind.speed;
 
-    // Round temperature to nearest whole number
-    currentTemp = Math.round(currentTemp);
+  // Round temperature to nearest whole number
+  currentTemp = Math.round(currentTemp);
 
-    // Clear previous weather data
-    $("#forecast-current").empty();
-    $("#forecast-5day").empty();
+  // Clear previous weather data
+  $("#forecast-current").empty();
+  $("#forecast-5day").empty();
 
-    // Append and show weather data on page
-    $("#forecast-current").append(`<p>Temperature: ${currentTemp}°C</p>`);
-    $("#forecast-current").append(`<p>Humidity: ${currentHumidity}%</p>`);
-    $("#forecast-current").append(`<p>Wind Speed: ${currentWind} km/h</p>`);
-    
-    // Append and show the 5 day forecast on page
-    $("#forecast-5day").append(`<h3>5-Day Forecast</h3>`);
-    
-    // Append data list items 1-6 to #forecast-5day
-    for (var i = 1; i <= 6; i++) {
-        var forecastWeather = data.list[i];
-        var forecastTemp = forecastWeather.main.temp;
-        var forecastHumidity = forecastWeather.main.humidity;
-        var forecastWind = forecastWeather.wind.speed;
-        forecastTemp = Math.round(forecastTemp);
-        $("#forecast-5day").append(`<p>Day ${i} - Temperature: ${forecastTemp}°C, Humidity: ${forecastHumidity}%, Wind Speed: ${forecastWind} km/h</p>`);
-    }
+  // Append and show weather data on page
+  $("#forecast-current").append(`<p>Temperature: ${currentTemp}°C</p>`);
+  $("#forecast-current").append(`<p>Humidity: ${currentHumidity}%</p>`);
+  $("#forecast-current").append(`<p>Wind Speed: ${currentWind} km/h</p>`);
+
+  // Append and show the 5 day forecast on page
+  $("#forecast-5day").append(`<h3>5-Day Forecast</h3>`);
+
+  // Append data list items 1-6 to #forecast-5day
+  for (var i = 1; i <= 6; i++) {
+    var forecastWeather = data.list[i];
+    var forecastTemp = forecastWeather.main.temp;
+    var forecastHumidity = forecastWeather.main.humidity;
+    var forecastWind = forecastWeather.wind.speed;
+    forecastTemp = Math.round(forecastTemp); // Round temperature to nearest whole number
+    $("#forecast-5day").append(
+      `<p>Day ${i} - Temperature: ${forecastTemp}°C, Humidity: ${forecastHumidity}%, Wind Speed: ${forecastWind} km/h</p>`
+    );
+  }
 }
 
 // Event listener for search button
@@ -67,3 +71,11 @@ $(".btn").on("click", function (event) {
   var location = $("#city").val();
   getWeather(location);
 });
+
+// Check if there is data saved in local storage
+var lastData = JSON.parse(localStorage.getItem("lastData"));
+
+// If there is data saved in local storage, display it
+if (lastData) {
+  displayData(lastData);
+}
