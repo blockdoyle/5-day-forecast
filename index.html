@@ -14,17 +14,21 @@
         </header>
         <section class="search">
             <h3>Search</h3>
-            <form action="search.php" method="GET">
+            <form>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for a city" name="city" id="city">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <button class="btn btn-primary">Search</button>
                 </div>
             </form>
         </section>
         <hr>
+        <div id="forecast-current">
+            <h3>Current Weather</h3>
+            <!-- This is where the current weather is displayed -->
+        </div>
         <hr>
-        <div id="forecast">
-            <!-- This is where forecast data is displayed -->
+        <div id="forecast-5day">
+            <!-- This is where the 5-day forecast data is displayed -->
         </div>
     </main>
     
