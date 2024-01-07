@@ -30,28 +30,31 @@ function displayData(data) {
     $("#forecast").html("<h3>No Weather Information Found</h3>");
     return;
   }
+  // Get current day from DayJS
+  var currentDay = dayjs().format("dddd, MMMM D, YYYY");
   // Get city name
-    var city = data.city.name;
+  var city = data.city.name;
   // Current weather
   var currentWeather = data.list[0];
   var currentTemp = currentWeather.main.temp;
   var currentHumidity = currentWeather.main.humidity;
-var currentWind = currentWeather.wind.speed;
+  var currentWind = currentWeather.wind.speed;
 
-// Round temperature to nearest whole number
-currentTemp = Math.round(currentTemp);
+  // Round temperature to nearest whole number
+  currentTemp = Math.round(currentTemp);
 
-// Clear previous weather data
-$("#forecast-current").empty();
+  // Clear previous weather data
+  $("#forecast-current").empty();
 $("#forecast-5day").empty();
 
 // Append and show weather data on page
 $("#forecast-current").append(`
     <h3>Current Weather for ${city}</h3>
     <div class="card border border-black col-auto p-2">
-        <p>Temperature: ${currentTemp}°C</p>
-        <p>Humidity: ${currentHumidity}%</p>
-        <p>Wind Speed: ${currentWind} km/h</p>
+            <h4 style="text-decoration: underline;">${currentDay}</h4>
+            <p>Temperature: ${currentTemp}°C</p>
+            <p>Humidity: ${currentHumidity}%</p>
+            <p>Wind Speed: ${currentWind} km/h</p>
     </div>
 `);
 
@@ -65,12 +68,14 @@ for (var i = 1; i <= 6; i++) {
     var forecastHumidity = forecastWeather.main.humidity;
     var forecastWind = forecastWeather.wind.speed;
     forecastTemp = Math.round(forecastTemp); // Round temperature to nearest whole number
+    var forecastDay = dayjs().add(i, 'day').format("dddd, D"); // Get the day for each forecast item
     $("#forecast-5day").append(`
-        <div class="card border border-black col-auto p-2 mb-1">
-                <p>Temperature: ${forecastTemp}°C</p>
-                <p>Humidity: ${forecastHumidity}%</p>
-                <p>Wind Speed: ${forecastWind} km/h</p>
-        </div>
+            <div class="card border border-black col-auto p-2 mb-1">
+                            <h4 style="text-decoration: underline;">${forecastDay}</h4>
+                            <p>Temperature: ${forecastTemp}°C</p>
+                            <p>Humidity: ${forecastHumidity}%</p>
+                            <p>Wind Speed: ${forecastWind} km/h</p>
+            </div>
     `);
 }
 }
