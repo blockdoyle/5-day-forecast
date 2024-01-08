@@ -17,6 +17,7 @@ This web app uses the [OpenWeatherMap API](openweathermap.org) to retrieve the w
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Credit](#credit)
 
 ## Installation
 
@@ -28,3 +29,6 @@ git clone https://github.com/blockdoyle/5-day-forecast.git
 
 ## Usage
 To view the webpage, either double-click the 'index.html' file, open a live server using Visual Studio Code, or add the files to your Apache HTTP server.
+
+## Credit
+I'd like to give thanks to the awesome people who work on the [Weather Icons](https://github.com/erikflowers/weather-icons) that were used in the search results.
