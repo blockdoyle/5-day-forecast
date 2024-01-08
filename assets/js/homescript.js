@@ -39,7 +39,26 @@ function displayData(data) {
   var currentTemp = currentWeather.main.temp;
   var currentHumidity = currentWeather.main.humidity;
   var currentWind = currentWeather.wind.speed;
-
+  var currentWeatherType = currentWeather.weather;
+  var currentCloudCover = currentWeatherType[0].main;
+  
+  // Convert Cloud Cover to Icon
+  if (currentCloudCover === "Clouds") {
+    currentCloudCover = "wi wi-cloudy";
+  } else if (currentCloudCover === "Clear") {
+    currentCloudCover = "wi wi-day-sunny";
+  } else if (currentCloudCover === "Rain") {
+    currentCloudCover = "wi wi-day-rain";
+  } else if (currentCloudCover === "Snow") {
+    currentCloudCover = "wi wi-day-snow";
+  } else if (currentCloudCover === "Thunderstorm") {
+    currentCloudCover = "wi wi-storm-showers";
+  } else if (currentCloudCover === "Drizzle") {
+    currentCloudCover = "wi wi-sprinkle";
+  } else if (currentCloudCover === "Mist") {
+    currentCloudCover = "wi wi-fog";
+  }
+    
   // Round temperature to nearest whole number
   currentTemp = Math.round(currentTemp);
 
@@ -53,6 +72,7 @@ $("#forecast-current").append(`
     <div class="card border border-black col-auto p-2">
             <h4 style="text-decoration: underline;">${currentDay}</h4>
             <p>Temperature: ${currentTemp}°C</p>
+            <p><i class="${currentCloudCover}"></i></p>
             <p>Humidity: ${currentHumidity}%</p>
             <p>Wind Speed: ${currentWind} km/h</p>
     </div>
@@ -73,6 +93,7 @@ for (var i = 1; i <= 6; i++) {
             <div class="card border border-black col-auto p-2 mb-1">
                             <h4 style="text-decoration: underline;">${forecastDay}</h4>
                             <p>Temperature: ${forecastTemp}°C</p>
+                            <p><i class="${currentCloudCover}"></i></p>
                             <p>Humidity: ${forecastHumidity}%</p>
                             <p>Wind Speed: ${forecastWind} km/h</p>
             </div>
